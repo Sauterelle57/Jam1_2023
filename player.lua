@@ -24,9 +24,11 @@ function player_update()
   	if player.landed then
     player.dy-=player.boost
     player.landed=false
+    sfx(1)
     elseif player.double_jump then
     player.dy=-3
     player.double_jump=false
+    sfx(1)
    end
   end
 
@@ -120,15 +122,16 @@ end
 
 function end_game()
  if collide_map(player,"middle",3) then
-		sfx(1)
+		player.win=true
 	end
 
-	if player.y>65*8
+	if (player.y>65*8
 	or collide_map(player,"up",2)
 	or collide_map(player,"down",2)
 	or collide_map(player,"right",2)
 	or collide_map(player,"left",2)
-  or is_colliding_with_flying_enemy() then
+  or is_colliding_with_flying_enemy())
+  and player.win==false then
 		player.sp=72
 		sfx(63)
 		player.y=59*8

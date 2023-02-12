@@ -30,11 +30,23 @@ function _update()
    end
    camera(0,cam_y)
  end
- 
+
  function _draw()
    cls()
    map(0,0)
-   spr(player.sp,player.x,player.y,1,1,player.flp)
+   if player.win==true then
+      draw_win()
+   end
    draw_enemies()
- end
- 
+   spr(player.sp,player.x,player.y,1,1,player.flp)
+end
+
+ function draw_win()
+	local _y=35
+	rectfill(0,_y,128,_y+50,1)
+	print("press x to replay !",40,_y+8,7)
+	print("well played !",40,_y+24,7)
+	if btn(❎) then
+		reset()
+	end
+end
