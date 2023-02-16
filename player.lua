@@ -3,9 +3,6 @@
 function player_update()
   --physics
   player.dy+=gravity
-  
-  --end game ?
-  end_game()
 
   --controls
   if btn(⬅️) then
@@ -22,13 +19,13 @@ function player_update()
   --jump
   if btnp(❎) then
   	if player.landed then
+  		sfx(1)
     player.dy-=player.boost
     player.landed=false
+   elseif player.double_jump then
     sfx(1)
-    elseif player.double_jump then
     player.dy=-3
     player.double_jump=false
-    sfx(1)
    end
   end
 
@@ -130,8 +127,8 @@ function end_game()
 	or collide_map(player,"down",2)
 	or collide_map(player,"right",2)
 	or collide_map(player,"left",2)
-  or is_colliding_with_flying_enemy())
-  and player.win==false then
+	or collide_map(player,"pelerin",2))
+	and player.win==false then
 		player.sp=72
 		sfx(63)
 		player.y=59*8
